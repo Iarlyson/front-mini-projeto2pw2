@@ -1,6 +1,8 @@
+
+
 import React from 'react';
 
-export default props => {
+function UserTables(props){
     const rows =props.users.map(user =>{
         return(
             <tr key={user.id}>
@@ -33,3 +35,4 @@ export default props => {
         </table>
     )
 }
+export default UserTables;

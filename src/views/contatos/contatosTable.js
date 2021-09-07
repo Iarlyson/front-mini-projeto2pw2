@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default props => {
+function ContatosTables(props){
     const rows =props.contatos.map(contato =>{
         return(
             <tr key={contato.id}>
@@ -36,3 +36,4 @@ export default props => {
         </table>
     )
 }
+export default ContatosTables;
