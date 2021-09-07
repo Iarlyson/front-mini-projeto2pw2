@@ -1,7 +1,6 @@
 import React from 'react';
 import Rotas from './rotas';
 import NavBar from '../components/navbar'
-import { BrowserRouter } from 'react-router-dom';
 
 import 'toastr/build/toastr.min.js'
 
