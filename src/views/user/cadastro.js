@@ -41,7 +41,7 @@ class CadastroUser extends React.Component{
     submit=()=>{
         const UserASalvar = {
             username: this.state.username,
-            email:this.state.email,
+            email:this.state.email.toLowerCase(),
             password:this.state.password,
 
         }
@@ -77,8 +77,9 @@ class CadastroUser extends React.Component{
     }
     atualizar=()=>{
         const { username, email, id } = this.state;
-
+        
         const UserAtualizar = { username, email, id };
+        UserAtualizar.email = email.toLowerCase();
         this.service
         .atualizar(UserAtualizar)
         .then(response =>{

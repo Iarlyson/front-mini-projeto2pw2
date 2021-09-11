@@ -14,15 +14,36 @@ class Login extends React.Component{
         super();
         this.service = new UsuarioService();
     }
+
+    componentDidMount(){
+
+        const params = localStorage.getItem("user");
+        if(params){
+            this.service
+                .obterPorEmail(params)
+                .then(response => {
+                   if(response.data){
+                    this.props.history.push('/consulta-contatos');
+
+                   }
+                })
+                .catch(erros => {
+                    mensagemErro(erros.response.data)
+                })
+            
+        }
+    }
     
     entrar =  () => {
         this.service.autenticar({
             email:this.state.email,
             password:this.state.password
         }).then(response =>{
-            //this.context.iniciarSessao(response.data)
+
             this.props.history.push('/consulta-contatos')
         }).catch(erro => {
+                        console.log("po")
+
             mensagemErro(erro.response.data)
         })  
         

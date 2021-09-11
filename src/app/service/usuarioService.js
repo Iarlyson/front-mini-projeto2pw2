@@ -32,11 +32,20 @@ class UsuarioService extends ApiService{
         return this.get(params);
     }
 
+    buscarPorEmail(email){      
+        console.log(email);
+
+        let params = `/buscar/${email}`
+
+        return this.get(params);
+    }
+
     deletar(id){
         return this.delete(`/${id}`)
     }
 
     atualizar(usuario){
+        localStorage.setItem("user", usuario.email)
         return this.patch(`/${usuario.id}`, usuario)
     }
     

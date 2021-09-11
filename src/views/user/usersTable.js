@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 function UserTables(props){
@@ -8,9 +6,7 @@ function UserTables(props){
             <tr key={user.id}>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-
                 <td>
-
                     <button type="button" title="Excluir" 
                         className="btn btn-danger"
                         onClick={e => props.deleteAction(user)}>
@@ -26,7 +22,7 @@ function UserTables(props){
                 <tr>
                     <th scope="col">Usename</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Deletar</th>
+                    <th scope="col">Ação</th>
                 </tr>
             </thead>
             <tbody>

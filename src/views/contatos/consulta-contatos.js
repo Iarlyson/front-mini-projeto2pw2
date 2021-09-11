@@ -85,7 +85,7 @@ class ConsultaContatos extends React.Component{
            console.log(       {contatos:response.data.contatos})
             
 
-            if(contatos.length < 1){
+            if(contatos.contatos.length < 1){
                 console.log( contatos)
 
                 messagens.mensagemAlerta("Nenhum resultado encontrado.");
@@ -101,17 +101,16 @@ class ConsultaContatos extends React.Component{
             nome: this.state.nome,
 
         }
+        if(contatoFiltro.nome){
         this.service.consultar(contatoFiltro)
         .then(response =>{
 
             const contatos = response.data;
 
-
             console.log({contatos:[response.data.contato]})
       
 
-
-            if(contatos.length < 1){
+            if(contatos.contato.length < 1){
                 console.log( contatos)
 
                 messagens.mensagemAlerta("Nenhum resultado encontrado.");
@@ -120,7 +119,9 @@ class ConsultaContatos extends React.Component{
             this.setState({contatos:response.data.contato})
         }).catch(error =>{
             console.log(error)
-        })
+        })}else{
+            messagens.mensagemAlerta("Preencha o campo Nome para buscar o contato")
+        }
     }
     abrirConfirmacao = (contato) =>{
         this.setState({showConfirmDialog:true, contatoDeletar:contato})
@@ -142,6 +143,7 @@ class ConsultaContatos extends React.Component{
                 this.setState(contatos)
                 this.setState({contatos:contatos,showConfirmDialog:false, contatoDeletar:{}})
                 messagens.mensagemSucesso('Contato deletado com Sucesso!')
+                console.log(messagens.mensagemSucesso)
                 window.location.reload();
             }).catch(error => {
                 messagens.mensagemErro('Ocorreu um erro a deletar o contato')

@@ -28,16 +28,7 @@ class ConsultaContatos extends React.Component{
         this.service.listar()
         .then(response =>{
 
-           const users = response.data;
-           console.log(response.data.users.id)
-            
-
-            if(users.length < 1){
-                console.log( users)
-
-                messagens.mensagemAlerta("Nenhum resultado encontrado.");
-            }
-
+         
             this.setState({users:response.data.users})
         }).catch(error =>{
             console.log(error)
@@ -56,10 +47,10 @@ class ConsultaContatos extends React.Component{
         .then(response =>{
 
            const users = response.data;
-           //console.log(       {users:response.data.users})
+           console.log(users)
             
 
-            if(users.length < 1){
+            if(users.users.length < 1){
                 console.log( users)
 
                 messagens.mensagemAlerta("Nenhum resultado encontrado.");
@@ -75,29 +66,35 @@ class ConsultaContatos extends React.Component{
             email: this.state.email,
 
         }
-        this.service.obterPorEmail(userFiltro.email)
+
+        if(userFiltro.email){
+        this.service.buscarPorEmail(userFiltro.email)
         .then(response =>{
 
             const users = response.data;
 
+            console.log(users.user)
 
-            console.log({users:[response.data.user]})
-      
-
-
-            if(users.length < 1){
-                console.log( users)
+            if(users.user.length<1){
+                console.log( "aqui")
 
                 messagens.mensagemAlerta("Nenhum resultado encontrado.");
             }
+            console.log(response.data)
 
-            this.setState({users:[response.data.user]})
+            this.setState({users:response.data.user})
         }).catch(error =>{
             console.log(error)
-        })
+        })}else{
+            messagens.mensagemAlerta("Preencha o campo email para buscar o usuario")
+
+        }
     }
     abrirConfirmacao = (user) =>{
-        this.setState({showConfirmDialog:true, userDeletar:user})
+
+   
+        this.setState({showConfirmDialog:true, userDeletar:user} )
+
     }
     cancelarDelecao = ()=>{
         this.setState({showConfirmDialog:false,userDeletar:{}})
@@ -105,9 +102,16 @@ class ConsultaContatos extends React.Component{
 
 
     deletar = () =>{
+        const usuario = localStorage.getItem("user")
+
         this.service
             .deletar(this.state.userDeletar.id)
             .then(response => {
+                if(this.state.userDeletar.email===usuario){
+                    console.log("teste")
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                }
                 const users = this.state.users;
                 const index = users.indexOf(this.state.contatoDeletar);
                 users.slice(index, 1);

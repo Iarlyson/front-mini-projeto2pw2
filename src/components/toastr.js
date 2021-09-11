@@ -21,7 +21,7 @@ export function mostrarMensagem(title, mensagem, tipo){
     toastr[tipo](mensagem, title)
 }
 export function mensagemErro(mensagem){
-    mostrarMensagem('Erro',mensagem,'error')
+    mostrarMensagem('Erro',mensagem.message,'error')
 }
 export function mensagemSucesso(mensagem){
     mostrarMensagem('Sucesso',mensagem,'success')
